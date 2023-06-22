@@ -34,7 +34,7 @@ services:
     depends_on:
       - wordpress-like
     ports:
-      - "6379:6379"
+      - "6379"
     tty: true
       
   # wordpress:
