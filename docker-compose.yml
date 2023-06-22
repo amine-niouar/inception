@@ -1,0 +1,58 @@
+version: "3"
+services:
+
+  mariadb:
+    container_name: mariadb-live
+    build: ./mariadb
+    tty: true
+  
+
+
+    
+
+  wordpress-like:
+    container_name: my-wordpress
+    build: ./wordpress-like
+    ports:
+      - "9000:9000"
+    depends_on:
+      - mariadb
+    tty: true
+    volumes:
+      - myapp:/var/www/html/
+
+  another-debian:
+    container_name: another-nginx
+    build: ./another-nginx
+    ports:
+        - "443:443"
+    depends_on:
+      - wordpress-like
+    tty: true
+    volumes:
+      - myapp:/var/www/html/
+
+      
+  # wordpress:
+  #   image: wordpress
+  #   restart: always
+  #   ports:
+  #     - 9000:80
+  #   environment:
+  #     WORDPRESS_DB_HOST: 172.19.0.4
+  #     WORDPRESS_DB_USER: aniouar
+  #     WORDPRESS_DB_PASSWORD: root
+  #     WORDPRESS_DB_NAME: wp
+  #   depends_on:
+  #     - another-debian
+  #     - mariadb
+  #   volumes:
+  #     - /wordpress/wp/:/var/www/html
+
+  # debian:
+  # container_name: beautiful-wordpress
+  # build: ./wordpress
+  # tty: true
+
+volumes:
+  myapp:
