@@ -5,10 +5,6 @@ services:
     container_name: mariadb-live
     build: ./mariadb
     tty: true
-  
-
-
-    
 
   wordpress-like:
     container_name: my-wordpress
@@ -31,7 +27,15 @@ services:
     tty: true
     volumes:
       - myapp:/var/www/html/
-
+  
+  redis:
+    container_name: redis-cache
+    build: ./redis-cache
+    depends_on:
+      - wordpress-like
+    ports:
+      - "6379:6379"
+    tty: true
       
   # wordpress:
   #   image: wordpress
