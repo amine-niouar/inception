@@ -36,6 +36,15 @@ services:
     ports:
       - "6379"
     tty: true
+
+  adminer:
+    container_name: my-adminer
+    build: ./adminer
+    depends_on:
+      - mariadb
+    ports:
+      - "8080"
+    tty: true
       
   # wordpress:
   #   image: wordpress
