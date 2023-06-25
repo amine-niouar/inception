@@ -43,6 +43,24 @@ services:
     ports:
       - "9999"
     tty: true
+
+  showcase:
+    container_name: my-showcase
+    build: ./showcase
+    ports:
+      - "2023"
+    tty: true
+  
+  ftpserver:
+    container_name: my-ftpserver
+    build: ./ftpserver
+    depends_on:
+      - wordpress-like
+    ports:
+      - "21"
+    tty: true
+    volumes:
+      - myapp:/var/www/html/
       
   # wordpress:
   #   image: wordpress
