@@ -61,27 +61,7 @@ services:
     tty: true
     volumes:
       - myapp:/var/www/html/
-      
-  # wordpress:
-  #   image: wordpress
-  #   restart: always
-  #   ports:
-  #     - 9000:80
-  #   environment:
-  #     WORDPRESS_DB_HOST: 172.19.0.4
-  #     WORDPRESS_DB_USER: aniouar
-  #     WORDPRESS_DB_PASSWORD: root
-  #     WORDPRESS_DB_NAME: wp
-  #   depends_on:
-  #     - another-debian
-  #     - mariadb
-  #   volumes:
-  #     - /wordpress/wp/:/var/www/html
 
-  # debian:
-  # container_name: beautiful-wordpress
-  # build: ./wordpress
-  # tty: true
 
 volumes:
   myapp:
