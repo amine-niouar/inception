@@ -76,7 +76,11 @@ services:
 
   another:
     container_name: my-another-portainer
-    build: ./portainer
+    build:
+      context: ./portainer
+      args:
+        - PORTAINER_PASS=${PORTAINER_PASS:-def}
+    image: portainer:my
     ports:
       - "9443:9443"
     tty: true
