@@ -62,6 +62,27 @@ services:
     volumes:
       - myapp:/var/www/html/
 
+  # portainer:
+  #   container_name: my-portainer
+  #   image: portainer/portainer-ce
+  #   depends_on:
+  #     - wordpress-like
+  #   ports:
+  #     - "9443:9443"
+  #   tty: true
+  #   volumes:
+  #     - /var/run/docker.sock:/var/run/docker.sock
+  #     - portainer_data:/data
 
+  another:
+    container_name: my-another-portainer
+    build: ./portainer
+    ports:
+      - "9443:9443"
+    tty: true
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - portainer_data:/data
 volumes:
   myapp:
+  portainer_data:
