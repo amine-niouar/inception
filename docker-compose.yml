@@ -57,7 +57,7 @@ services:
     depends_on:
       - wordpress-like
     ports:
-      - "21"
+      - "21" 
     tty: true
     volumes:
       - myapp:/var/www/html/
@@ -65,10 +65,6 @@ services:
   # portainer:
   #   container_name: my-portainer
   #   image: portainer/portainer-ce
-  #   depends_on:
-  #     - wordpress-like
-  #   ports:
-  #     - "9443:9443"
   #   tty: true
   #   volumes:
   #     - /var/run/docker.sock:/var/run/docker.sock
@@ -78,15 +74,13 @@ services:
     container_name: my-another-portainer
     build:
       context: ./portainer
-      args:
-        - PORTAINER_PASS=${PORTAINER_PASS:-def}
     image: portainer:my
     ports:
-      - "9443:9443"
+      - "9443"
     tty: true
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      - portainer_data:/data
+    restart: always
 volumes:
   myapp:
   portainer_data:
