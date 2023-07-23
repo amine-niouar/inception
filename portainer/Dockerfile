@@ -1,4 +1,4 @@
-from debian:buster
+from debian:bullseye
 
 RUN apt update
 RUN apt install curl wget nodejs tar unzip npm -y

@@ -1,10 +1,25 @@
 version: "3"
+
+volumes:
+  wpfolder:
+    driver: local
+    driver_opts:
+      o: bind
+      type: none
+      device: /var/www/html
+
+networks:
+  mynetwork:
+    driver: bridge
+
 services:
 
   mariadb:
     container_name: mariadb-live
     build: ./mariadb
-    tty: true
+    restart: always
+    networks:
+      - mynetwork
 
   wordpress-like:
     container_name: my-wordpress
@@ -13,9 +28,11 @@ services:
       - "9000:9000"
     depends_on:
       - mariadb
-    tty: true
+    restart: always
+    networks:
+      - mynetwork
     volumes:
-      - myapp:/var/www/html/
+      - wpfolder:/var/www/html/
 
   another-debian:
     container_name: another-nginx
@@ -24,9 +41,11 @@ services:
         - "443:443"
     depends_on:
       - wordpress-like
-    tty: true
+    restart: always
+    networks:
+      - mynetwork
     volumes:
-      - myapp:/var/www/html/
+      - wpfolder:/var/www/html/
   
   redis:
     container_name: redis-cache
@@ -35,21 +54,27 @@ services:
       - wordpress-like
     ports:
       - "6379"
-    tty: true
+    restart: always
+    networks:
+      - mynetwork
 
   adminer:
     container_name: my-adminer
     build: ./adminer
     ports:
       - "9999"
-    tty: true
+    restart: always
+    networks:
+      - mynetwork
 
   showcase:
     container_name: my-showcase
     build: ./showcase
     ports:
       - "2023"
-    tty: true
+    restart: always
+    networks:
+      - mynetwork
   
   ftpserver:
     container_name: my-ftpserver
@@ -58,17 +83,11 @@ services:
       - wordpress-like
     ports:
       - "21" 
-    tty: true
+    restart: always
+    networks:
+      - mynetwork
     volumes:
-      - myapp:/var/www/html/
-
-  # portainer:
-  #   container_name: my-portainer
-  #   image: portainer/portainer-ce
-  #   tty: true
-  #   volumes:
-  #     - /var/run/docker.sock:/var/run/docker.sock
-  #     - portainer_data:/data
+      - wpfolder:/var/www/html/
 
   another:
     container_name: my-another-portainer
@@ -77,10 +96,10 @@ services:
     image: portainer:my
     ports:
       - "9443"
-    tty: true
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     restart: always
-volumes:
-  myapp:
-  portainer_data:
+    networks:
+      - mynetwork
+    
+

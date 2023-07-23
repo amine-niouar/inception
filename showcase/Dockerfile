@@ -1,4 +1,4 @@
-from debian:buster
+from debian:bullseye
 
 
 RUN apt-get update

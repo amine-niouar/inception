@@ -1,4 +1,4 @@
-FROM debian:latest
+FROM debian:bullseye
 
 
 #wget mariadb-client
@@ -6,27 +6,27 @@ FROM debian:latest
 RUN apt-get update
 RUN apt install curl git wget unzip zip vim -y
 RUN apt install  mariadb-client -y
-RUN  apt install php php-fpm php-mbstring php-bcmath php-xml php-mysql php-common php-gd php-cli php-curl php-zip php-imagick php-ldap php-intl -y
+RUN  apt install php php-fpm php-mysql -y
 
 RUN wget https://wordpress.org/latest.zip
 RUN unzip latest.zip -d /tmp/
 RUN rm -rf /var/www/html/index.html
+RUN mkdir -p /var/www/html/
 RUN cp -rf /tmp/wordpress/* /var/www/html/
 RUN chown -R www-data:www-data /var/www/html/
 RUN find /var/www/html/ -type d -exec chmod 755 {} \;
 RUN find /var/www/html/ -type f -exec chmod 644 {} \;
-#COPY exec.sql /tmp
 COPY script.sh /tmp
 RUN chmod +x ./tmp/script.sh
 COPY wp-config-sample.php /var/www/html/wp-config.php
-COPY www.conf /etc/php/8.2/fpm/pool.d/
+COPY www.conf /etc/php/7.4/fpm/pool.d/
 RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
 RUN chmod +x wp-cli.phar
 RUN  mv wp-cli.phar /usr/local/bin/wp
 
 #RUN 
 #RUN wp config create --dbname=wp --dbuser=root --prompt=root --dbhost=mariadb --allow-root --path=/var/www/html/
-ENTRYPOINT   ./tmp/script.sh
+CMD  [ "./tmp/script.sh" ]   
 
 #RUN wp core install  --title=shit --admin_user=root --admin_password=root --admin_email=shit@shit.com --allow-root --path=/var/www/html/ --url=localhost
 
