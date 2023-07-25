@@ -15,17 +15,19 @@ networks:
 services:
 
   mariadb:
-    container_name: mariadb-live
-    build: ./mariadb
+    container_name: mariadb
+    build: ./requirements/mariadb
+    image: mariadb:my
     restart: always
     networks:
       - mynetwork
 
-  wordpress-like:
-    container_name: my-wordpress
-    build: ./wordpress-like
-    ports:
-      - "9000:9000"
+  wordpress:
+    container_name: wordpress
+    build: ./requirements/wordpress
+    image: wordpress:my
+    env_file:
+      - ./.env
     depends_on:
       - mariadb
     restart: always
@@ -34,13 +36,14 @@ services:
     volumes:
       - wpfolder:/var/www/html/
 
-  another-debian:
-    container_name: another-nginx
-    build: ./another-nginx
+  nginx:
+    container_name: nginx
+    build: ./requirements/nginx
+    image: nginx:my
     ports:
         - "443:443"
     depends_on:
-      - wordpress-like
+      - wordpress
     restart: always
     networks:
       - mynetwork
@@ -48,54 +51,48 @@ services:
       - wpfolder:/var/www/html/
   
   redis:
-    container_name: redis-cache
-    build: ./redis-cache
+    container_name: redis
+    build: ./requirements/bonus/redis
+    image: redis:my
     depends_on:
-      - wordpress-like
-    ports:
-      - "6379"
+      - wordpress
     restart: always
     networks:
       - mynetwork
 
   adminer:
-    container_name: my-adminer
-    build: ./adminer
-    ports:
-      - "9999"
+    container_name: adminer
+    build: ./requirements/bonus/adminer
+    image: adminer:my
     restart: always
     networks:
       - mynetwork
 
   showcase:
-    container_name: my-showcase
-    build: ./showcase
-    ports:
-      - "2023"
+    container_name: showcase
+    build: ./requirements/bonus/showcase
+    image: showcase:my
     restart: always
     networks:
       - mynetwork
   
   ftpserver:
-    container_name: my-ftpserver
-    build: ./ftpserver
+    container_name: ftpserver
+    build: ./requirements/bonus/ftpserver
+    image: ftpserver:my
     depends_on:
-      - wordpress-like
-    ports:
-      - "21" 
+      - wordpress
     restart: always
     networks:
       - mynetwork
     volumes:
       - wpfolder:/var/www/html/
 
-  another:
-    container_name: my-another-portainer
+  portainer:
+    container_name: portainer
     build:
-      context: ./portainer
+      context: ./requirements/bonus/portainer
     image: portainer:my
-    ports:
-      - "9443"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     restart: always
