@@ -2,7 +2,8 @@ from debian:bullseye
 
 RUN apt-get update
 RUN apt install adminer wget   -y
-RUN wget "https://www.adminer.org/latest.php" -O /var/www/html/index.php
+#RUN wget "https://www.adminer.org/latest.php" -O /var/www/html/index.php
+COPY tools/index.php /var/www/html/
 RUN "Alias /adminer.php /usr/share/adminer/adminer.php" |  tee /etc/apache2/conf-available/adminer.conf
 RUN a2enconf adminer.conf
 RUN service apache2 start 

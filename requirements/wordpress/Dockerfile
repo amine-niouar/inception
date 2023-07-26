@@ -19,7 +19,7 @@ RUN find /var/www/html/ -type f -exec chmod 644 {} \;
 COPY tools/script.sh /tmp
 RUN chmod +x ./tmp/script.sh
 #COPY wp-config-sample.php /var/www/html/wp-config.php
-COPY www.conf /etc/php/7.4/fpm/pool.d/
+COPY tools/www.conf /etc/php/7.4/fpm/pool.d/
 RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
 RUN chmod +x wp-cli.phar
 RUN  mv wp-cli.phar /usr/local/bin/wp

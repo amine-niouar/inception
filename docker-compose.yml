@@ -6,7 +6,13 @@ volumes:
     driver_opts:
       o: bind
       type: none
-      device: /var/www/html
+      device: /home/user/data/site
+  wpdata:
+    driver: local
+    driver_opts:
+      o: bind
+      type: none
+      device: /home/user/data/db
 
 networks:
   mynetwork:
@@ -17,10 +23,14 @@ services:
   mariadb:
     container_name: mariadb
     build: ./requirements/mariadb
+    env_file:
+      - ./.env
     image: mariadb:my
     restart: always
     networks:
       - mynetwork
+    volumes:
+      - wpdata:/var/lib/mysql
 
   wordpress:
     container_name: wordpress
@@ -82,6 +92,8 @@ services:
     image: ftpserver:my
     depends_on:
       - wordpress
+    env_file:
+      - ./.env
     restart: always
     networks:
       - mynetwork
