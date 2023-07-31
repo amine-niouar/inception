@@ -1,12 +1,13 @@
 
-Docker is a platform that allows to run applications and
-their dependencies in an isolated environment called container
 
-enable developers package an application with necessary components 
-libraries and dependencies and configurations into single unit 
+three components : dockerfile , image , container
 
-Easy to deploy and run in different environment
+steps to build the image
+dockerfile consists instructions to build an image
 
 
-it starts a dockerfile a file full of instructions to build ready-only 
-component called image which a blueprint of container 
+
+ftp ftpserver
+talker
+root
+ls

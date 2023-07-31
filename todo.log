@@ -1,0 +1,21 @@
+folder structure [ done]
+fix names [ done]
+env file [done]
+automate exec function with conditions and stuff mariadb wordpress
+clean nginx [ done]
+fix sleep problem
+learn how to ftp
+env ftp [done]
+fix makefile [ cloose]
+ask if default env variables are important
+adminer problem certicate download [fixed]
+Makefile mixing the build and up, down and volumes issue [idea]
+wordpress config file problem
+Execute the others
+change the shit password [done]
+clean the shit comments commands
+Other depend tree
+fixed wired login info mariadb user
+missing folder tree in bonus
+Ask if the filesystem should writable
+Duplicate wordpress folder two docker up

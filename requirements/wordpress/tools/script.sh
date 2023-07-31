@@ -11,7 +11,13 @@ sed -i "s/localhost/$DB_HOST/g" $path/wp-config.php
 
 wp core install  --title=$TITLE --admin_user=$ADMIN_USER --admin_password=$ADMIN_PASSWORD --admin_email=$ADMIN_EMAIL --allow-root --path=$path --url=$URL 
 wp theme install twentysixteen --activate --allow-root --path=$path
+
+chown www-data:www-data $path -R 
+chmod 766 www-data:www-data $path
+wp config set WP_CACHE true --path=$path --allow-root
+
 wp plugin install redis-cache --activate --allow-root --path=$path
+
 
 wp config set WP_REDIS_HOST "$REDIS_HOST" --allow-root --path=$path
 wp config set WP_REDIS_PORT "$REDIS_PORT" --allow-root --path=$path

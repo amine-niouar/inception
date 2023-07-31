@@ -3,8 +3,8 @@ from debian:bullseye
 
 RUN apt update
 RUN apt install vsftpd ufw -y
-COPY scripts.sh /tmp/scripts.sh
-COPY vsftpd.conf /etc/vsftpd.conf
+COPY tools/scripts.sh /tmp/scripts.sh
+COPY tools/vsftpd.conf /etc/vsftpd.conf
 #COPY ftpusers /etc/ftpusers
 RUN chmod u+x ./tmp/scripts.sh
 CMD [ "./tmp/scripts.sh" ]

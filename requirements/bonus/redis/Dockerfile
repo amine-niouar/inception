@@ -10,8 +10,8 @@ RUN apt-get update
 # RUN apt install ufw -y
 # RUN ufw allow 6379
 RUN apt-get install redis-server -y
-COPY scripts.sh /tmp/scripts.sh
-COPY redis.conf /etc/redis
+COPY tools/scripts.sh /tmp/scripts.sh
+COPY tools/redis.conf /etc/redis
 RUN chmod u+x ./tmp/scripts.sh
 #RUN service redis-server start
 CMD  ["./tmp/scripts.sh"]

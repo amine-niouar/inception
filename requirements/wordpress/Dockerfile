@@ -13,9 +13,9 @@ RUN unzip latest.zip -d /tmp/
 RUN rm -rf /var/www/html/index.html
 RUN mkdir -p /var/www/html/
 RUN cp -rf /tmp/wordpress/* /var/www/html/
-RUN chown -R www-data:www-data /var/www/html/
-RUN find /var/www/html/ -type d -exec chmod 755 {} \;
-RUN find /var/www/html/ -type f -exec chmod 644 {} \;
+# RUN chown -R www-data:www-data /var/www/html/
+# RUN find /var/www/html/ -type d -exec chmod 755 {} \;
+# RUN find /var/www/html/ -type f -exec chmod 644 {} \;
 COPY tools/script.sh /tmp
 RUN chmod +x ./tmp/script.sh
 #COPY wp-config-sample.php /var/www/html/wp-config.php
