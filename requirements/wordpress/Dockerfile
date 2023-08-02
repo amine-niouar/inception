@@ -9,13 +9,15 @@ RUN apt install  mariadb-client -y
 RUN  apt install php php-fpm php-mysql -y
 
 RUN wget https://wordpress.org/latest.zip
+
+RUN mkdir -p /var/www/html
 RUN unzip latest.zip -d /tmp/
-RUN rm -rf /var/www/html/index.html
-RUN mkdir -p /var/www/html/
+# RUN chown -R www-data:www-data /var/www/html
+#  RUN find /var/www/html/ -type d -exec chmod 755 {} \;
+#  RUN find /var/www/html/ -type f -exec chmod 644 {} \;
 RUN cp -rf /tmp/wordpress/* /var/www/html/
-# RUN chown -R www-data:www-data /var/www/html/
-# RUN find /var/www/html/ -type d -exec chmod 755 {} \;
-# RUN find /var/www/html/ -type f -exec chmod 644 {} \;
+
+
 COPY tools/script.sh /tmp
 RUN chmod +x ./tmp/script.sh
 #COPY wp-config-sample.php /var/www/html/wp-config.php
