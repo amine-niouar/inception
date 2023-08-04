@@ -40,6 +40,7 @@ services:
       - ./.env
     depends_on:
       - mariadb
+      - redis
     restart: always
     networks:
       - mynetwork
@@ -51,7 +52,7 @@ services:
     build: ./requirements/nginx
     image: nginx:my
     ports:
-        - "443:443"
+        - 443:443
     depends_on:
       - wordpress
     restart: always
@@ -64,9 +65,6 @@ services:
     container_name: redis
     build: ./requirements/bonus/redis
     image: redis:my
-    depends_on:
-      - wordpress
-      - nginx
     restart: always
     networks:
       - mynetwork

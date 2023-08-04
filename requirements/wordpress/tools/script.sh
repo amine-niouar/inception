@@ -18,6 +18,9 @@ chown -R  www-data:www-data /var/www/html
 chmod 766 /var/www/html
 find /var/www/html/ -type d -exec chmod 755 {} \;
  find /var/www/html/ -type f -exec chmod 644 {} \;
+  find /var/www/html/wp-content/uploads -type d -exec chmod 777 {} \;
+ find /var/www/html/wp-content/uploads -type f -exec chmod 777 {} \;
+
 wp config set WP_CACHE true --path=$path --allow-root
 
 wp plugin install redis-cache --activate --allow-root --path=$path
@@ -26,7 +29,7 @@ wp plugin install redis-cache --activate --allow-root --path=$path
 wp config set WP_REDIS_HOST "$REDIS_HOST" --allow-root --path=$path
 wp config set WP_REDIS_PORT "$REDIS_PORT" --allow-root --path=$path
 wp config set WP_REDIS_DATABASE "$REDIS_DATABASE" --allow-root --path=$path
-wp config set WP_REDIS_PASSWORD "$REDIS_PASSWORD" --allow-root --path=$path
+#wp config set WP_REDIS_PASSWORD "$REDIS_PASSWORD" --allow-root --path=$path
 wp redis enable --allow-root --path=/var/www/html/
 fi
 
