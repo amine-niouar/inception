@@ -6,5 +6,4 @@ RUN wget https://github.com/portainer/portainer/releases/download/2.18.4/portain
 
 WORKDIR /portainer
 CMD [ "./portainer"]
-#CMD ["bash"]
 

@@ -1,12 +1,13 @@
 .PHONY: build up down cache
- 
+
+
 build:
-	docker-compose -f docker-compose.yml build 
+	docker-compose -f srcs/docker-compose.yml build 
 up:
-	docker-compose -f docker-compose.yml up 
+	docker-compose -f srcs/docker-compose.yml up 
 down:
-	docker-compose -f docker-compose.yml down -v
+	docker-compose -f srcs/docker-compose.yml down -v
 rm:
-	rm -rf /home/user/data/site/* /home/user/data/db/*
+	rm -rf /home/leet/data/site/*  /home/leet/data/db/*
 cache:
 	docker system prune -af

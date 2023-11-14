@@ -9,4 +9,4 @@ COPY tools/scripts.sh /tmp
 WORKDIR /tmp
 RUN chmod u+x ./scripts.sh
 
-CMD [ "bash","/tmp/scripts.sh" ]
+CMD ["/tmp/scripts.sh" ]
