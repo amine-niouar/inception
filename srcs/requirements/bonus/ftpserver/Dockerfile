@@ -1,10 +1,13 @@
-from debian:bullseye
+FROM debian:bullseye
 
+RUN apt-get update && apt-get upgrade -y && apt-get install -y sudo && apt-get install -y vsftpd
 
-RUN apt update
-RUN apt install vsftpd ufw -y
-COPY tools/scripts.sh /tmp/scripts.sh
-COPY tools/vsftpd.conf /etc/vsftpd.conf
-#COPY ftpusers /etc/ftpusers
-RUN chmod u+x ./tmp/scripts.sh
-CMD [ "./tmp/scripts.sh" ]
+# COPY ./tools/vsftpd.conf /etc/vsftpd.conf
+
+COPY ./tools/scripts.sh /
+
+RUN chmod 777 scripts.sh
+
+EXPOSE 21
+
+CMD ["./scripts.sh"]

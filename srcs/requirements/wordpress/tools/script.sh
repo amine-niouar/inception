@@ -1,7 +1,9 @@
 #!/bin/bash
 
 sleep 10
+
 if [ ! -f /var/www/html/wp-config.php ]; then
+
 
 mv  -f $path/wp-config-sample.php $path/wp-config.php
 sed -i "s/database_name_here/$DB_NAME/g" $path/wp-config.php 
@@ -16,7 +18,6 @@ wp theme install twentysixteen --activate --allow-root --path=$path
 
 chown -R  www-data:www-data /var/www/html
 chown 766 www-data:www-data /var/www/html
-
 
 wp config set WP_DEBUG true --type=constant  --allow-root
 wp config set WP_DEBUG_LOG true --type=constant --allow-root
@@ -34,6 +35,8 @@ wp config set WP_REDIS_DATABASE "$REDIS_DATABASE" --allow-root --path=$path
 wp redis enable --allow-root --path=$path
 fi
 
+chown -R  www-data:www-data /var/www/html
+chown 766 www-data:www-data /var/www/html
 service php7.4-fpm start
 sleep 2
 service php7.4-fpm stop

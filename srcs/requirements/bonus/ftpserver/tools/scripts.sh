@@ -1,10 +1,16 @@
 #!/bin/bash
 
+ftp_user=user
+ftp_pass=pass
+
 mkdir -p /var/run/vsftpd/empty
-chmod 755 /var/run/vsftpd/empty
-useradd -m -p $(openssl passwd -1 $FTP_PASSWORD) $FTP_USER
 
-echo "$FTP_USER:$FTP_PASSWORD" | chpasswd
-chown -R talker /var/www/html
+useradd -m ${ftp_user}
 
-/usr/sbin/vsftpd /etc/vsftpd.conf
+echo ${ftp_user} >> /etc/vsftpd.userlist
+
+chown ${ftp_user}:${ftp_user} /home/${ftp_user}
+
+echo "$ftp_user:$ftp_pass" | chpasswd
+
+vsftpd

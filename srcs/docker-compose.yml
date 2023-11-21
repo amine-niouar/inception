@@ -1,4 +1,4 @@
-version: "3"
+version: "3.8"
 
 volumes:
   wpfolder:
@@ -6,20 +6,19 @@ volumes:
     driver_opts:
       o: bind
       type: none
-      device: /home/leet/data/site
+      device: /home/user/data/site
   wpdata:
     driver: local
     driver_opts:
       o: bind
       type: none
-      device: /home/leet/data/db
+      device: /home/user/data/db
 
 networks:
   mynetwork:
     driver: bridge
 
 services:
-
   mariadb:
     container_name: mariadb
     build: ./requirements/mariadb
@@ -84,20 +83,6 @@ services:
     restart: always
     networks:
       - mynetwork
-  
-  ftpserver:
-    container_name: ftpserver
-    build: ./requirements/bonus/ftpserver
-    image: ftpserver:my
-    depends_on:
-      - wordpress
-    env_file:
-      - ./.env
-    restart: always
-    networks:
-      - mynetwork
-    volumes:
-      - wpfolder:/var/www/html/
 
   portainer:
     container_name: portainer
