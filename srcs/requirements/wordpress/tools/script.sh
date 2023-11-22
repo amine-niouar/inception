@@ -14,7 +14,7 @@ sed -i "s/localhost/$DB_HOST/g" $path/wp-config.php
 wp core install  --title=$TITLE --admin_user=$ADMIN_USER --admin_password=$ADMIN_PASSWORD --admin_email=$ADMIN_EMAIL --allow-root --path=$path --url=$URL 
 wp user create $USER_WP $USER_EMAIL --role="author" --user_pass=$USER_PASSWORD  --path=$path --allow-root 
 
-wp theme install twentysixteen --activate --allow-root --path=$path
+wp theme install https://downloads.wordpress.org/theme/bizboost.1.0.1.zip –activate --allow-root --path=$path
 
 chown -R  www-data:www-data /var/www/html
 chown 766 www-data:www-data /var/www/html
